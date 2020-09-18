@@ -40,7 +40,7 @@ public class welcome extends AppCompatActivity {
 
         //Initializing Variables start here...
 
-        txtViewFname=findViewById(R.id.txtFirstName);
+        /*xtViewFname=findViewById(R.id.txtFirstName);
         txtViewLName=findViewById(R.id.txtLastName);
         txtViewEmail=findViewById(R.id.txtemail);
         txtViewpassword=findViewById(R.id.txtPassword);
@@ -48,7 +48,7 @@ public class welcome extends AppCompatActivity {
         txtViewBranch=findViewById(R.id.txtBranch);
         txtViewCity=findViewById(R.id.txtCity);
         txtViewStatus=findViewById(R.id.txtStatus);
-
+        */
         //Initializing Variables finish here...
 
         SharedPreferences SP = getSharedPreferences("Login_Info",MODE_PRIVATE);
