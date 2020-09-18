@@ -7,27 +7,25 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class welcome extends AppCompatActivity {
-    TextView txtLoginDetail;
+
     DatabaseHelper db;
-    String UserEmail;
-    TextView txtViewFname;
-    TextView txtViewLName;
-    TextView txtViewEmail;
-    TextView txtViewpassword;
-    TextView txtViewGender;
-    TextView txtViewBranch;
-    TextView txtViewCity;
-    TextView txtViewStatus;
+    ListView listView;
+    ArrayAdapter<String> adapter;
 
 
     Button btnlogout;
@@ -35,34 +33,28 @@ public class welcome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome);
-        this.setTitle("Your Details");
+        this.setTitle("Users List");
+        DatabaseHelper db=new DatabaseHelper(this);
+        listView=findViewById(R.id.lstUserData);
+        adapter=new ArrayAdapter<String>(
+                this,
+                R.layout.userslist,
+                db.getUsersList()
+        );
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(this, ((TextView)view).getText().toString(), Toast.LENGTH_SHORT).show();
 
-
-        //Initializing Variables start here...
-
-        /*xtViewFname=findViewById(R.id.txtFirstName);
-        txtViewLName=findViewById(R.id.txtLastName);
-        txtViewEmail=findViewById(R.id.txtemail);
-        txtViewpassword=findViewById(R.id.txtPassword);
-        txtViewGender=findViewById(R.id.txtGender);
-        txtViewBranch=findViewById(R.id.txtBranch);
-        txtViewCity=findViewById(R.id.txtCity);
-        txtViewStatus=findViewById(R.id.txtStatus);
-        */
-        //Initializing Variables finish here...
-
-        SharedPreferences SP = getSharedPreferences("Login_Info",MODE_PRIVATE);
-        UserEmail = SP.getString("Username","");
-
-        txtLoginDetail=findViewById(R.id.LoginDetail);
-        txtLoginDetail.setText(UserEmail);
-
+            }
+        });
 
     }
 
     public void SetData()
     {
-        DatabaseHelper db=new DatabaseHelper(this);
+        /*DatabaseHelper db=new DatabaseHelper(this);
         Cursor res=db.getData(UserEmail);
         res.moveToNext();
 
@@ -74,7 +66,7 @@ public class welcome extends AppCompatActivity {
         txtViewBranch.setText("Branch : "+res.getString(6));
         txtViewCity.setText("City : "+res.getString(7));
         txtViewStatus.setText("Status : "+res.getString(8));
-
+        */
     }
 
 
@@ -119,10 +111,6 @@ public class welcome extends AppCompatActivity {
 
 
 
-                break;
-
-            case R.id.menuDisplay:
-                SetData();
                 break;
 
         }

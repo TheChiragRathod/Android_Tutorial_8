@@ -6,8 +6,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
@@ -81,6 +84,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
         Cursor res=db.rawQuery(Query,null);
 
         return res;
+    }
+    public ArrayList<String> getUsersList()
+    {
+        SQLiteDatabase db=getReadableDatabase();
+        String Query="SELECT "+COL_4+" FROM "+TABLE;
+        Cursor res=db.rawQuery(Query,null);
+        res.moveToFirst();
+        ArrayList<String> arrayList=new ArrayList<String>();
+        do {
+            arrayList.add(res.getString(0));
+
+        }while(res.moveToNext());
+
+        return arrayList;
     }
 
 
