@@ -45,8 +45,9 @@ public class welcome extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(this, ((TextView)view).getText().toString(), Toast.LENGTH_SHORT).show();
-
+                Intent intent=new Intent(welcome.this,DisplayUserData.class);
+                intent.putExtra("UserEmail",((TextView)view).getText().toString());
+                startActivity(intent);
             }
         });
 
